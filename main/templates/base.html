@@ -1,0 +1,85 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Ecommerce Bootstrap Template</title>
+	<!-- Font Awesome -->
+	<link rel="stylesheet" type="text/css" href="{% static 'fontawesome-free/css/all.min.css' %}" />
+	<!-- Bootstrap 4 CSS -->
+	<link rel="stylesheet" type="text/css" href="{% static 'bs4/bootstrap.min.css' %}" />
+	<!-- Main Jquery -->
+	<script type="text/javascript" src="{% static 'jquery.min.js' %}"></script>
+	<!-- Bootstrap 4 JS -->
+	<script type="text/javascript" src="{% static 'bs4/bootstrap.min.js' %}"></script>
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-danger">
+		<div class="container">
+		  <a class="navbar-brand" href="/">Bottle Shop</a>
+		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+		    <span class="navbar-toggler-icon"></span>
+		  </button>
+		  <div class="collapse navbar-collapse" id="navbarNav">
+		    <ul class="navbar-nav ml-auto">
+		      <li class="nav-item">
+		        <a class="nav-link text-white" href="/">Home</a>
+		      </li>
+		      <li class="nav-item">
+		        <a class="nav-link text-white" href="{% url 'category-list' %}">Categories</a>
+		      </li>
+		      <li class="nav-item">
+		        <a class="nav-link text-white" href="{% url 'brand-list' %}">Brands</a>
+		      </li>
+		      <li class="nav-item">
+		        <a class="nav-link text-white" href="/cart.php"><i class="fa fa-shopping-cart"></i> Cart (2)</a>
+		      </li>
+		      <li class="nav-item">
+		        <a class="nav-link text-white" href="/account.php"><i class="fa fa-user"></i> My Account</a>
+		      </li>
+		    </ul>
+		  </div>
+		</div>
+    </nav>
+    
+    {% block content %}
+    {% endblock %}
+
+<footer class="pt-4 my-md-5 pt-md-5 border-top container">
+    <div class="row">
+        <div class="col-12 col-md">
+        <a href="#">Bottle Shop</a>
+        <small class="d-block mb-3 text-muted">&copy; 2017-2020</small>
+        </div>
+        <div class="col-6 col-md">
+        <h5>Features</h5>
+        <ul class="list-unstyled text-small">
+            <li><a class="text-muted" href="#">Cool stuff</a></li>
+            <li><a class="text-muted" href="#">Random feature</a></li>
+            <li><a class="text-muted" href="#">Team feature</a></li>
+            <li><a class="text-muted" href="#">Stuff for developers</a></li>
+            <li><a class="text-muted" href="#">Another one</a></li>
+            <li><a class="text-muted" href="#">Last time</a></li>
+        </ul>
+        </div>
+        <div class="col-6 col-md">
+        <h5>Resources</h5>
+        <ul class="list-unstyled text-small">
+            <li><a class="text-muted" href="#">Resource</a></li>
+            <li><a class="text-muted" href="#">Resource name</a></li>
+            <li><a class="text-muted" href="#">Another resource</a></li>
+            <li><a class="text-muted" href="#">Final resource</a></li>
+        </ul>
+        </div>
+        <div class="col-6 col-md">
+        <h5>About</h5>
+        <ul class="list-unstyled text-small">
+            <li><a class="text-muted" href="#">Team</a></li>
+            <li><a class="text-muted" href="#">Locations</a></li>
+            <li><a class="text-muted" href="#">Privacy</a></li>
+            <li><a class="text-muted" href="#">Terms</a></li>
+        </ul>
+        </div>
+    </div>
+    </footer>
+</body>
+</html>

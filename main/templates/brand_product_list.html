@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<main class="container my-4">
+	<div class="row">
+		<!-- Filters -->
+		<div class="col-md-3">
+			<h3 class="mb-4 border-bottom pb-1">Filters</h3>
+			<!-- Filter 1 -->
+			<div class="card mb-4">
+				<h6 class="card-header">Colors</h6>
+				<div class="list-group list-group-flush">
+					{% for color in colors %}
+					<li class="list-group-item">
+						<input value="{{color.color__id}}" type="checkbox" />&nbsp;
+						<button class="btn" style="background-color: {{color.color__color_code}}; margin-top: -5px;"></button>
+					</li>
+					{% endfor %}
+				</div>
+			</div>
+			<!-- Filter 2 -->
+			<div class="card mb-4">
+				<h6 class="card-header">Categories</h6>
+				<div class="list-group list-group-flush">
+					{% for cat in cats %}
+					<li class="list-group-item">
+						<input value="{{cat.category__id}}" type="checkbox" />&nbsp;
+						{{cat.category__title}}
+					</li>
+					{% endfor %}
+				</div>
+			</div>
+			<!-- Filter 3 -->
+			<div class="card mb-4">
+				<h6 class="card-header">Brands</h6>
+				<div class="list-group list-group-flush">
+					{% for brand in brands %}
+					<li class="list-group-item">
+						<input value="{{brand.brand__id}}" type="checkbox" />&nbsp;
+						{{brand.brand__title}}
+					</li>
+					{% endfor %}
+				</div>
+			</div>
+			<!-- Filter 3 -->
+			<div class="card mb-4">
+				<h6 class="card-header">Sizes</h6>
+				<div class="list-group list-group-flush">
+					{% for size in sizes %}
+					<li class="list-group-item">
+						<input value="{{size.size__id}}" type="checkbox" />&nbsp;
+						{{size.size__title}}
+					</li>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+		<div class="col-md-9">
+			<!-- Products -->
+			<h3 class="mb-4 border-bottom pb-1">
+				Products
+			</h3>
+			<div class="row">
+				{% for product in data %}
+				<div class="col-md-4 mb-4">
+					<div class="card shadow">
+					  <a href="/product/{{product.slug}}/{{product.id}}"><img src="/media/{{product.image}}" class="card-img-top" alt="{{product.title}}"></a>
+					  <div class="card-body">
+					    <h6 class="card-text"><a href="/product/{{product.slug}}/{{product.id}}">{{product.title}}</a></h6>
+					  </div>
+					  <div class="card-footer">
+					  	<button class="btn btn-sm btn-primary"><i class="fa fa-shopping-cart"></i></button>
+					  	<button class="btn btn-sm btn-danger"><i class="fa fa-heart"></i></button>
+					  	<span class="float-right">
+					  		4.5/5
+					  		<i class="fa fa-star text-warning"></i>
+					  	</span>
+					  </div>
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+			<p class="my-4 text-center"><a href="products.php" class="btn btn-dark btn-sm">Load More <i class="fa fa-sync"></i></a></p>
+		</div>
+	</div>
+</main>
+{% endblock %}
