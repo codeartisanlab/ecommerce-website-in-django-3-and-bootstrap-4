@@ -7,7 +7,7 @@
 	<div class="row">
 		<!-- Images -->
 		<div class="col-md-4">
-			<img id="zoom_01" data-zoom-image="/media/{{data.image}}" src="/media/{{data.image}}" class="card-img-top" alt="{{data.title}}">
+			<img id="zoom_01" data-zoom-image="/media/{{data.productattribute_set.first.image}}" src="/media/{{data.productattribute_set.first.image}}" class="card-img-top" alt="{{data.title}}">
 		</div>
 		<div class="col-md-8">
 			<p>{{data.detail}}</p>
@@ -15,7 +15,7 @@
 			<table class="table table-bordered">
 				<tr>
 					<th>Price</th>
-					<th>Rs. 299</th>
+					<th>Rs. {{data.productattribute_set.first.price}}</th>
 				</tr>
 				<tr>
 					<th>Colors</th>

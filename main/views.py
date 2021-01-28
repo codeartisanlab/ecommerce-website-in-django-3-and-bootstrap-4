@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .models import Banner,Category,Brand,Product,ProductAttribute
+from django.db.models import Max,Min
 # Home Page
 def home(request):
 	banners=Banner.objects.all().order_by('-id')
@@ -23,6 +24,8 @@ def product_list(request):
 	brands=Product.objects.distinct().values('brand__title','brand__id')
 	colors=ProductAttribute.objects.distinct().values('color__title','color__id','color__color_code')
 	sizes=ProductAttribute.objects.distinct().values('size__title','size__id')
+	min_price=ProductAttribute.objects.aggregate(Min('price'))
+	max_price=ProductAttribute.objects.aggregate(Max('price'))
 	return render(request,'product_list.html',
 		{
 			'data':data,
@@ -30,6 +33,8 @@ def product_list(request):
 			'brands':brands,
 			'colors':colors,
 			'sizes':sizes,
+			'min_price':min_price,
+			'max_price':max_price,
 		}
 		)
 
