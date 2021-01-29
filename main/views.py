@@ -20,19 +20,11 @@ def brand_list(request):
 # Product List
 def product_list(request):
 	data=Product.objects.all().order_by('-id')
-	cats=Product.objects.distinct().values('category__title','category__id')
-	brands=Product.objects.distinct().values('brand__title','brand__id')
-	colors=ProductAttribute.objects.distinct().values('color__title','color__id','color__color_code')
-	sizes=ProductAttribute.objects.distinct().values('size__title','size__id')
 	min_price=ProductAttribute.objects.aggregate(Min('price'))
 	max_price=ProductAttribute.objects.aggregate(Max('price'))
 	return render(request,'product_list.html',
 		{
 			'data':data,
-			'cats':cats,
-			'brands':brands,
-			'colors':colors,
-			'sizes':sizes,
 			'min_price':min_price,
 			'max_price':max_price,
 		}
@@ -42,32 +34,16 @@ def product_list(request):
 def category_product_list(request,cat_id):
 	category=Category.objects.get(id=cat_id)
 	data=Product.objects.filter(category=category).order_by('-id')
-	cats=Product.objects.distinct().values('category__title','category__id')
-	brands=Product.objects.distinct().values('brand__title','brand__id')
-	colors=ProductAttribute.objects.distinct().values('color__title','color__id','color__color_code')
-	sizes=ProductAttribute.objects.distinct().values('size__title','size__id')
 	return render(request,'category_product_list.html',{
 			'data':data,
-			'cats':cats,
-			'brands':brands,
-			'colors':colors,
-			'sizes':sizes,
 			})
 
 # Product List According to Brand
 def brand_product_list(request,brand_id):
 	brand=Brand.objects.get(id=brand_id)
 	data=Product.objects.filter(brand=brand).order_by('-id')
-	cats=Product.objects.distinct().values('category__title','category__id')
-	brands=Product.objects.distinct().values('brand__title','brand__id')
-	colors=ProductAttribute.objects.distinct().values('color__title','color__id','color__color_code')
-	sizes=ProductAttribute.objects.distinct().values('size__title','size__id')
 	return render(request,'category_product_list.html',{
 			'data':data,
-			'cats':cats,
-			'brands':brands,
-			'colors':colors,
-			'sizes':sizes,
 			})
 
 # Product Detail
