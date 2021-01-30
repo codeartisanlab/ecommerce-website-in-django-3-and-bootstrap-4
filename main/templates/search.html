@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<main class="container my-4">
+	<!-- Featured Products -->
+	<h3 class="my-4 border-bottom pb-1"><span class="text-muted">Search result for</span> {{request.GET.q}}</h3>
+	<div class="row">
+    {% for product in data %}
+		<div class="col-md-3 mb-4">
+			<div class="card shadow">
+			  <a href="/product/{{product.slug}}/{{product.id}}"><img src="/media/{{product.productattribute_set.first.image}}" class="card-img-top" alt="{{product.title}}"></a>
+			  <div class="card-body">
+			    <h6 class="card-text"><a href="/product/{{product.slug}}/{{product.id}}">{{product.title}}</a></h6>
+			  </div>
+			  <div class="card-footer">
+			  	<button class="btn btn-sm btn-primary"><i class="fa fa-shopping-cart"></i></button>
+			  	<button class="btn btn-sm btn-danger"><i class="fa fa-heart"></i></button>
+			  	<span class="float-right">
+			  		4.5/5
+			  		<i class="fa fa-star text-warning"></i>
+			  	</span>
+			  </div>
+			</div>
+		</div>
+    {% endfor %}
+	</div>
+</main>
+{% endblock %}
