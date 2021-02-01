@@ -1,4 +1,4 @@
-
+{% load static %}
 			<h3 class="mb-4 border-bottom pb-1">Filters</h3>
 			<!-- Filter 1 -->
 			<div class="card mb-4">
@@ -6,7 +6,7 @@
 				<div class="list-group list-group-flush">
 					{% for color in colors %}
 					<li class="list-group-item">
-						<input value="{{color.color__id}}" type="checkbox" />&nbsp;
+						<input class="filter-checkbox" data-filter="color" value="{{color.color__id}}" type="checkbox" />&nbsp;
 						<button class="btn" style="background-color: {{color.color__color_code}}; margin-top: -5px;"></button>
 					</li>
 					{% endfor %}
@@ -18,7 +18,7 @@
 				<div class="list-group list-group-flush">
 					{% for cat in cats %}
 					<li class="list-group-item">
-						<input value="{{cat.category__id}}" type="checkbox" />&nbsp;
+						<input class="filter-checkbox" data-filter="category" value="{{cat.category__id}}" type="checkbox" />&nbsp;
 						{{cat.category__title}}
 					</li>
 					{% endfor %}
@@ -30,7 +30,7 @@
 				<div class="list-group list-group-flush">
 					{% for brand in brands %}
 					<li class="list-group-item">
-						<input value="{{brand.brand__id}}" type="checkbox" />&nbsp;
+						<input class="filter-checkbox" data-filter="brand" value="{{brand.brand__id}}" type="checkbox" />&nbsp;
 						{{brand.brand__title}}
 					</li>
 					{% endfor %}
@@ -42,10 +42,11 @@
 				<div class="list-group list-group-flush">
 					{% for size in sizes %}
 					<li class="list-group-item">
-						<input value="{{size.size__id}}" type="checkbox" />&nbsp;
+						<input class="filter-checkbox" data-filter="size" value="{{size.size__id}}" type="checkbox" />&nbsp;
 						{{size.size__title}}
 					</li>
 					{% endfor %}
 				</div>
 			</div>
+
 		
