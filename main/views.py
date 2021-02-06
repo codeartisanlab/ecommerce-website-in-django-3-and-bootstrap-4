@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.http import JsonResponse,HttpResponse
 from .models import Banner,Category,Brand,Product,ProductAttribute
-from django.db.models import Max,Min,Q
+from django.db.models import Max,Min,Count
+from django.template.loader import render_to_string
 # Home Page
 def home(request):
 	banners=Banner.objects.all().order_by('-id')
@@ -58,18 +59,3 @@ def search(request):
 	q=request.GET['q']
 	data=Product.objects.filter(title__icontains=q).order_by('-id')
 	return render(request,'search.html',{'data':data})
-
-# Filter Products
-def filter_product(request):
-	colors=request.GET.getlist('color[]')
-	categories=request.GET.getlist('category[]')
-	brands=request.GET.getlist('brand[]')
-	sizes=request.GET.getlist('size[]')
-	filterProducts=ProductAttribute.objects.filter(
-		color__id__in=colors,
-		product__category__id__in=categories,
-		# product__brand__id__in=brands,
-		# size__id__in=sizes,
-	)
-	return HttpResponse(filterProducts.query)
-	# return JsonResponse({'data':list(filterProducts)})

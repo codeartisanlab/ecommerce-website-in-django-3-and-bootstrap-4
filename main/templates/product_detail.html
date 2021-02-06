@@ -51,11 +51,11 @@
 			<table class="table table-bordered">
 				<tr>
 					<th>Brand</th>
-					<td><a href="#">{{data.brand.title}}</a></td>
+					<td><a href="/brand-product-list/{{data.brand.id}}">{{data.brand.title}}</a></td>
 				</tr>
 				<tr>
 					<th>Category</th>
-					<td><a href="#">{{data.category.title}}</a></td>
+					<td><a href="/category-product-list/{{data.category.id}}">{{data.category.title}}</a></td>
 				</tr>
 				<tr>
 					<th>Specification</th>
@@ -89,7 +89,7 @@
 	<h3 class="mt-4 mb-3 border-bottom pb-1">Related Products</h3>
 	<div class="row">
 		{% for product in related %}
-		<div class="col-md-3 mb-4">
+		<div class="col-lg-3 col-sm-4 mb-4">
 			<div class="card shadow">
 			  <a href="/product/{{product.slug}}/{{product.id}}"><img src="/media/{{product.productattribute_set.first.image}}" class="card-img-top" alt="{{product.title}}"></a>
 			  <div class="card-body">
