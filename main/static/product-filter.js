@@ -1,4 +1,5 @@
 $(document).ready(function(){
+	$(".ajaxLoader").hide();
 	$(".filter-checkbox").on('click',function(){
 		var _filterObj={};
 		$(".filter-checkbox").each(function(index,ele){
@@ -8,5 +9,21 @@ $(document).ready(function(){
 			 	return el.value;
 			});
 		});
+
+		// Run Ajax
+		$.ajax({
+			url:'/filter-data',
+			data:_filterObj,
+			dataType:'json',
+			beforeSend:function(){
+				$(".ajaxLoader").show();
+			},
+			success:function(res){
+				console.log(res);
+				$("#filteredProducts").html(res.data);
+				$(".ajaxLoader").hide();
+			}
+		});
+
 	});
 });

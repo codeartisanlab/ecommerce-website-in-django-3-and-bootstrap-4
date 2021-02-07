@@ -59,3 +59,21 @@ def search(request):
 	q=request.GET['q']
 	data=Product.objects.filter(title__icontains=q).order_by('-id')
 	return render(request,'search.html',{'data':data})
+
+# Filter Data
+def filter_data(request):
+	colors=request.GET.getlist('color[]')
+	categories=request.GET.getlist('category[]')
+	brands=request.GET.getlist('brand[]')
+	sizes=request.GET.getlist('size[]')
+	allProducts=Product.objects.all().order_by('-id').distinct()
+	if len(colors)>0:
+		allProducts=allProducts.filter(productattribute__color__id__in=colors).distinct()
+	if len(categories)>0:
+		allProducts=allProducts.filter(category__id__in=categories).distinct()
+	if len(brands)>0:
+		allProducts=allProducts.filter(brand__id__in=brands).distinct()
+	if len(sizes)>0:
+		allProducts=allProducts.filter(productattribute__size__id__in=sizes).distinct()
+	t=render_to_string('ajax/product-list.html',{'data':allProducts})
+	return JsonResponse({'data':t})
