@@ -1,6 +1,18 @@
 {% load static %}
 <script type="text/javascript" src="{% static 'product-filter.js' %}"></script>
 			<h3 class="mb-4 border-bottom pb-1">Filters</h3>
+			<!-- Price Filter -->
+			<div class="card mb-4">
+				<h6 class="card-header">Price</h6>
+				<div class="list-group list-group-flush">
+					<li class="list-group-item">
+						<input type="range" id="rangeInput" min="0" max="100" oninput="maxPrice.value=this.value" />
+					</li>
+					<li class="list-group-item">
+						Max: <input type="number" onkeyup="rangeInput.value=this.value" id="maxPrice" min="0" max="100" />
+					</li>
+				</div>
+			</div>
 			<!-- Filter 1 -->
 			<div class="card mb-4">
 				<h6 class="card-header">Colors</h6>
@@ -49,5 +61,3 @@
 					{% endfor %}
 				</div>
 			</div>
-
-		
