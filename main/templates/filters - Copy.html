@@ -6,12 +6,12 @@
 				<h6 class="card-header">Price</h6>
 				<div class="list-group list-group-flush">
 					<li class="list-group-item">
-						<input type="range" value="{{minMaxPrice.price__min}}" max={{minMaxPrice.price__max}} min={{minMaxPrice.price__min}} id="rangeInput" oninput="maxPrice.value=this.value" />
+						<input type="range" id="rangeInput" min="{{minMaxPrice.price__min}}" max="{{minMaxPrice.price__max}}" value="{{minMaxPrice.price__min}}" oninput="maxPrice.value=this.value" />
 						<p>{{minMaxPrice.price__min}}-{{minMaxPrice.price__max}}</p>
 					</li>
 					<li class="list-group-item">
-						Max: <input type="number" value="{{minMaxPrice.price__min}}" max={{minMaxPrice.price__max}} min={{minMaxPrice.price__min}} class="form-control" id="maxPrice" onkeyup="rangeInput.value=this.value" id="maxPrice" />
-						<button class="btn btn-info btn-sm mt-1">Filter</button>
+						Max: <input type="number" value="{{minMaxPrice.price__min}}" class="form-control" onkeyup="rangeInput.value=this.value" id="maxPrice" min="{{minMaxPrice.price__min}}" max="{{minMaxPrice.price__max}}" />
+						<button type="button" data-min="{{minMaxPrice.price__min}}" data-max="{{minMaxPrice.price__max}}" class="btn btn-info btn-sm mt-2" id="priceFilterBtn">Filter</button>
 					</li>
 				</div>
 			</div>

@@ -3,7 +3,8 @@
 	<div class="card shadow">
 	  <a href="/product/{{product.slug}}/{{product.id}}"><img src="/media/{{product.productattribute_set.first.image}}" class="card-img-top" alt="{{product.title}}"></a>
 	  <div class="card-body">
-	    <h6 class="card-text"><a href="/product/{{product.slug}}/{{product.id}}">{{product.title}}</a></h6>
+	    <h5 class="card-text"><a href="/product/{{product.slug}}/{{product.id}}">{{product.title}}</a></h5>
+	    <h6>Rs. {{product.productattribute_set.first.price}}</h6>
 	  </div>
 	  <div class="card-footer">
 	  	<button class="btn btn-sm btn-primary"><i class="fa fa-shopping-cart"></i></button>

@@ -66,7 +66,11 @@ def filter_data(request):
 	categories=request.GET.getlist('category[]')
 	brands=request.GET.getlist('brand[]')
 	sizes=request.GET.getlist('size[]')
+	minPrice=request.GET['minPrice']
+	maxPrice=request.GET['maxPrice']
 	allProducts=Product.objects.all().order_by('-id').distinct()
+	allProducts=allProducts.filter(productattribute__price__gte=minPrice)
+	allProducts=allProducts.filter(productattribute__price__lte=maxPrice)
 	if len(colors)>0:
 		allProducts=allProducts.filter(productattribute__color__id__in=colors).distinct()
 	if len(categories)>0:
