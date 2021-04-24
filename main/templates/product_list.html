@@ -15,7 +15,7 @@
 			<div class="row" id="filteredProducts">
 				<p class="ajaxLoader">Loading...</p>
 				{% for product in data %}
-				<div class="col-lg-4 col-md-6 mb-4">
+				<div class="col-lg-4 col-md-6 mb-4 product-box">
 					<div class="card shadow">
 					  <a href="/product/{{product.slug}}/{{product.id}}"><img src="/media/{{product.productattribute_set.first.image}}" class="card-img-top" alt="{{product.title}}"></a>
 					  <div class="card-body">
@@ -34,8 +34,9 @@
 				</div>
 				{% endfor %}
 			</div>
-			<p class="my-4 text-center"><a href="products.php" class="btn btn-dark btn-sm">Load More <i class="fa fa-sync"></i></a></p>
+			<p class="my-4 text-center"><button id="loadMore" data-total="{{total_data}}" data-limit="3" class="btn btn-dark btn-sm">Load More <i class="fa fa-sync load-more-icon"></i></button></p>
 		</div>
 	</div>
 </main>
+<script type="text/javascript" src="{% static 'custom.js' %}"></script>
 {% endblock %}

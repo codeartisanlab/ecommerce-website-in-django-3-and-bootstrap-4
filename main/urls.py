@@ -14,6 +14,7 @@ urlpatterns=[
     path('brand-product-list/<int:brand_id>',views.brand_product_list,name='brand-product-list'),
     path('product/<str:slug>/<int:id>',views.product_detail,name='product_detail'),
     path('filter-data',views.filter_data,name='filter_data'),
+    path('load-more-data',views.load_more_data,name='load_more_data'),
 ]
 
 if settings.DEBUG:

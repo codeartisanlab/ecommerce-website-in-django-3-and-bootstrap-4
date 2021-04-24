@@ -1,7 +1,7 @@
 $(document).ready(function(){
 	$(".ajaxLoader").hide();
 	// Product Filter Start
-	$(".filter-checkbox").on('click',function(){
+	$(".filter-checkbox,#priceFilterBtn").on('click',function(){
 		var _filterObj={};
 		var _minPrice=$('#maxPrice').attr('min');
 		var _maxPrice=$('#maxPrice').val();
@@ -45,35 +45,6 @@ $(document).ready(function(){
 			$("#rangeInput").val(_min);
 			return false;
 		}
-	});
-	
-	$("#priceFilterBtn").on('click',function(){
-		var _minPrice=$(this).data('min');
-		var _maxPrice=$('#maxPrice').val();
-		var _filterObj={};
-		$(".filter-checkbox").each(function(index,ele){
-			var _filterVal=$(this).val();
-			var _filterKey=$(this).data('filter');
-			_filterObj[_filterKey]=Array.from(document.querySelectorAll('input[data-filter='+_filterKey+']:checked')).map(function(el){
-			 	return el.value;
-			});
-		});
-		_filterObj.minPrice=_minPrice;
-		_filterObj.maxPrice=_maxPrice;
-		// Run Ajax
-		$.ajax({
-			url:'/filter-data',
-			data:_filterObj,
-			dataType:'json',
-			beforeSend:function(){
-				$(".ajaxLoader").show();
-			},
-			success:function(res){
-				console.log(res);
-				$("#filteredProducts").html(res.data);
-				$(".ajaxLoader").hide();
-			}
-		});
 	});
 	// End
 });
