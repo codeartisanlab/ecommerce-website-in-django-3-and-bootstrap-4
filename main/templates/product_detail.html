@@ -14,24 +14,24 @@
 			<hr/>
 			<table class="table table-bordered">
 				<tr>
-					<th>Price</th>
-					<th>Rs. {{data.productattribute_set.first.price}}</th>
-				</tr>
-				<tr>
 					<th>Colors</th>
 					<td>
-						{% for p_attr in data.productattribute_set.all %}
-							<button class="btn btn-lg" style="background-color: {{p_attr.color.color_code}}"></button>
+						{% for color in colors %}
+							<button class="btn btn-lg choose-color" data-color="{{color.color__id}}" style="background-color: {{color.color__color_code}}"></button>
 						{% endfor %}
 					</td>
 				</tr>
 				<tr>
 					<th>Sizes</th>
 					<td>
-						{% for p_attr in data.productattribute_set.all %}
-						<button class="btn btn-outline-secondary btn-sm">{{p_attr.size.title}}</button>
+						{% for size in sizes %}
+						<button data-price="{{size.price}}" class="btn btn-outline-secondary btn-sm choose-size color{{size.color__id}}">{{size.size__title}}</button>
 						{% endfor %}
 					</td>
+				</tr>
+				<tr>
+					<th>Price</th>
+					<th>Rs. <span class="product-price">{{data.productattribute_set.first.price}}</span></th>
 				</tr>
 			</table>
 			<hr/>
