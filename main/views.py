@@ -94,3 +94,26 @@ def load_more_data(request):
 	t=render_to_string('ajax/product-list.html',{'data':data})
 	return JsonResponse({'data':t}
 )
+
+# Add to cart
+def add_to_cart(request):
+	# del request.session['cartdata']
+	cart_p={}
+	cart_p[str(request.GET['id'])]={
+		'title':request.GET['title'],
+		'qty':request.GET['qty'],
+		'price':request.GET['price'],
+	}
+	if 'cartdata' in request.session:
+		if str(request.GET['id']) in request.session['cartdata']:
+			cart_data=request.session['cartdata']
+			cart_data[str(request.GET['id'])]['qty']=int(cart_p[str(request.GET['id'])]['qty'])
+			cart_data.update(cart_data)
+			request.session['cartdata']=cart_data
+		else:
+			cart_data=request.session['cartdata']
+			cart_data.update(cart_p)
+			request.session['cartdata']=cart_data
+	else:
+		request.session['cartdata']=cart_p
+	return JsonResponse({'data':request.session['cartdata'],'totalitems':len(request.session['cartdata'])})

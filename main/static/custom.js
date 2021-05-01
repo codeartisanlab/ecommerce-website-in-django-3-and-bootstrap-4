@@ -34,6 +34,7 @@ $(document).ready(function(){
 
 	// Show size according to selected color
 	$(".choose-color").on('click',function(){
+		$(".choose-size").removeClass('active');
 		$(".choose-color").removeClass('focused');
 		$(this).addClass('focused');
 
@@ -67,5 +68,34 @@ $(document).ready(function(){
 	$(".color"+_color).show();
 	$(".color"+_color).first().addClass('active');
 	$(".product-price").text(_price);
+
+	// Add to cart
+	$(document).on('click',"#addToCartBtn",function(){
+		var _vm=$(this);
+		var _qty=$("#productQty").val();
+		var _productId=$(".product-id").val();
+		var _productTitle=$(".product-title").val();
+		var _productPrice=$(".product-price").text();
+		// Ajax
+		$.ajax({
+			url:'/add-to-cart',
+			data:{
+				'id':_productId,
+				'qty':_qty,
+				'title':_productTitle,
+				'price':_productPrice
+			},
+			dataType:'json',
+			beforeSend:function(){
+				_vm.attr('disabled',true);
+			},
+			success:function(res){
+				$(".cart-list").text(res.totalitems);
+				_vm.attr('disabled',false);
+			}
+		});
+		// End
+	});
+	// End
 
 });

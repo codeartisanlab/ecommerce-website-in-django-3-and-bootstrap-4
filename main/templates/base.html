@@ -42,7 +42,7 @@
 		        <a class="nav-link text-white" href="{% url 'brand-list' %}">Brands</a>
 		      </li>
 		      <li class="nav-item">
-		        <a class="nav-link text-white" href="/cart.php"><i class="fa fa-shopping-cart"></i> Cart (2)</a>
+		        <a class="nav-link text-white" href="/cart.php"><i class="fa fa-shopping-cart"></i> Cart (<span class="cart-list">{{request.session.cartdata|length}}</span>)</a>
 		      </li>
 		      <li class="nav-item">
 		        <a class="nav-link text-white" href="/account.php"><i class="fa fa-user"></i> My Account</a>
