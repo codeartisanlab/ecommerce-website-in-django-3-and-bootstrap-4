@@ -38,6 +38,7 @@
 			<div class="input-group my-3" style="width:30%;">
 			  <input type="number" value="1" class="form-control" id="productQty" />
 			  <div class="input-group-append">
+			  	<input type="hidden" class="product-image" value="{{data.productattribute_set.first.image}}" />
 			  	<input type="hidden" class="product-id" value="{{data.id}}" />
 			  	<input type="hidden" class="product-title" value="{{data.title}}" />
 			    <button class="btn btn-primary btn-sm" type="button" id="addToCartBtn"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
