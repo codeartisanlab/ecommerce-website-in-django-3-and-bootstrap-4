@@ -18,6 +18,7 @@ urlpatterns=[
     path('add-to-cart',views.add_to_cart,name='add_to_cart'),
     path('cart',views.cart_list,name='cart'),
     path('delete-from-cart',views.delete_cart_item,name='delete-from-cart'),
+    path('update-cart',views.update_cart_item,name='update-cart'),
 ]
 
 if settings.DEBUG:
