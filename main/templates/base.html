@@ -44,8 +44,18 @@
 		      <li class="nav-item">
 		        <a class="nav-link text-white" href="{% url 'cart' %}"><i class="fa fa-shopping-cart"></i> Cart (<span class="cart-list">{{request.session.cartdata|length}}</span>)</a>
 		      </li>
-		      <li class="nav-item">
-		        <a class="nav-link text-white" href="/account.php"><i class="fa fa-user"></i> My Account</a>
+		      <li class="nav-item dropdown">
+		        <a class="nav-link text-white dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		          <i class="fa fa-user"></i> My Account
+		        </a>
+		        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+		        {% if user.is_authenticated %}
+		        	<a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+	        	{% else %}
+	        		<a class="dropdown-item" href="{% url 'login' %}">Login</a>
+		          <a class="dropdown-item" href="#">Signup</a>
+		        {% endif %}
+		        </div>
 		      </li>
 		    </ul>
 		  </div>

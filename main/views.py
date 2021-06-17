@@ -3,6 +3,8 @@ from django.http import JsonResponse,HttpResponse
 from .models import Banner,Category,Brand,Product,ProductAttribute
 from django.db.models import Max,Min,Count
 from django.template.loader import render_to_string
+from .forms import SignupForm
+from django.contrib.auth import login,authenticate
 # Home Page
 def home(request):
 	banners=Banner.objects.all().order_by('-id')
@@ -122,9 +124,13 @@ def add_to_cart(request):
 # Cart List Page
 def cart_list(request):
 	total_amt=0
-	for p_id,item in request.session['cartdata'].items():
-		total_amt+=int(item['qty'])*float(item['price'])
-	return render(request, 'cart.html',{'cart_data':request.session['cartdata'],'totalitems':len(request.session['cartdata']),'total_amt':total_amt})
+	if 'cartdata' in request.session:
+		for p_id,item in request.session['cartdata'].items():
+			total_amt+=int(item['qty'])*float(item['price'])
+		return render(request, 'cart.html',{'cart_data':request.session['cartdata'],'totalitems':len(request.session['cartdata']),'total_amt':total_amt})
+	else:
+		return render(request, 'cart.html',{'cart_data':'','totalitems':0,'total_amt':total_amt})
+
 
 # Delete Cart Item
 def delete_cart_item(request):
@@ -154,3 +160,17 @@ def update_cart_item(request):
 		total_amt+=int(item['qty'])*float(item['price'])
 	t=render_to_string('ajax/cart-list.html',{'cart_data':request.session['cartdata'],'totalitems':len(request.session['cartdata']),'total_amt':total_amt})
 	return JsonResponse({'data':t,'totalitems':len(request.session['cartdata'])})
+
+# Signup Form
+def signup(request):
+	if request.method=='POST':
+		form=SignupForm(request.POST)
+		if form.is_valid():
+			form.save()
+			username=form.cleaned_data.get('username')
+			pwd=form.cleaned_data.get('password1')
+			user=authenticate(username=username,password=pwd)
+			login(request, user)
+			return redirect('home')
+	form=SignupForm
+	return render(request, 'registration/signup.html',{'form':form})
