@@ -21,9 +21,7 @@
 					<p><a href="/product/{{item.title|slugify}}/{{product_id}}">{{item.title}}</a></p>
 				</td>
 				<td>
-					<input type="number" class="product-qty-{{product_id}}" value="{{item.qty}}" style="vertical-align: bottom;" />
-					<button class="btn btn-sm btn-primary update-item" data-item="{{product_id}}"><i class="fa fa-sync"></i></button>
-					<button class="btn btn-sm btn-danger delete-item" data-item="{{product_id}}"><i class="fa fa-trash"></i></button>
+					{{item.qty}}
 				</td>
 				<td>Rs. {{item.price}}</td>
 				<td>Rs. {% widthratio item.price 1 item.qty %}</td>
@@ -39,7 +37,7 @@
 			{% if totalitems %}
 			<tr>
 				<td colspan="4" align="right">
-					<a href="{% url 'checkout' %}" class="btn btn-dark btn-sm">Checkout <i class="fa fa-long-arrow-alt-right"></i></a>
+					{{form.render}}
 				</td>
 			</tr>
 			{% endif %}
