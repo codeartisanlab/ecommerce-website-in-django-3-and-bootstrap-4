@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.html import mark_safe
+from django.contrib.auth.models import User
 # Banner
 class Banner(models.Model):
     img=models.ImageField(upload_to="banner_imgs/")
@@ -97,5 +98,31 @@ class ProductAttribute(models.Model):
 
     def image_tag(self):
         return mark_safe('<img src="%s" width="50" height="50" />' % (self.image.url))
+
+# Order
+class CartOrder(models.Model):
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
+    total_amt=models.FloatField()
+    paid_status=models.BooleanField(default=False)
+    order_dt=models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name_plural='8. Orders'
+
+# OrderItems
+class CartOrderItems(models.Model):
+    order=models.ForeignKey(CartOrder,on_delete=models.CASCADE)
+    invoice_no=models.CharField(max_length=150)
+    item=models.CharField(max_length=150)
+    image=models.CharField(max_length=200)
+    qty=models.IntegerField()
+    price=models.FloatField()
+    total=models.FloatField()
+
+    class Meta:
+        verbose_name_plural='9. Order Items'
+
+    def image_tag(self):
+        return mark_safe('<img src="/media/%s" width="50" height="50" />' % (self.image))
 
     

@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import JsonResponse,HttpResponse
-from .models import Banner,Category,Brand,Product,ProductAttribute
+from .models import Banner,Category,Brand,Product,ProductAttribute,CartOrder,CartOrderItems
 from django.db.models import Max,Min,Count
 from django.template.loader import render_to_string
 from .forms import SignupForm
@@ -185,24 +185,43 @@ def signup(request):
 # Checkout
 @login_required
 def checkout(request):
-	# Process Payment
-	order_id='456'
-	host = request.get_host()
-	paypal_dict = {
-	    'business': settings.PAYPAL_RECEIVER_EMAIL,
-	    'amount': '123',
-	    'item_name': 'Item Name',
-	    'invoice': 'INV-456',
-	    'currency_code': 'USD',
-	    'notify_url': 'http://{}{}'.format(host,reverse('paypal-ipn')),
-	    'return_url': 'http://{}{}'.format(host,reverse('payment_done')),
-	    'cancel_return': 'http://{}{}'.format(host,reverse('payment_cancelled')),
-	}
-	form = PayPalPaymentsForm(initial=paypal_dict)
 	total_amt=0
+	totalAmt=0
 	if 'cartdata' in request.session:
 		for p_id,item in request.session['cartdata'].items():
+			totalAmt+=int(item['qty'])*float(item['price'])
+		# Order
+		order=CartOrder.objects.create(
+				user=request.user,
+				total_amt=totalAmt
+			)
+		# End
+		for p_id,item in request.session['cartdata'].items():
 			total_amt+=int(item['qty'])*float(item['price'])
+			# OrderItems
+			items=CartOrderItems.objects.create(
+				order=order,
+				invoice_no='INV-'+str(order.id),
+				item=item['title'],
+				image=item['image'],
+				qty=item['qty'],
+				price=item['price'],
+				total=float(item['qty'])*float(item['price'])
+				)
+			# End
+		# Process Payment
+		host = request.get_host()
+		paypal_dict = {
+		    'business': settings.PAYPAL_RECEIVER_EMAIL,
+		    'amount': total_amt,
+		    'item_name': 'OrderNo-'+str(order.id),
+		    'invoice': 'INV-'+str(order.id),
+		    'currency_code': 'USD',
+		    'notify_url': 'http://{}{}'.format(host,reverse('paypal-ipn')),
+		    'return_url': 'http://{}{}'.format(host,reverse('payment_done')),
+		    'cancel_return': 'http://{}{}'.format(host,reverse('payment_cancelled')),
+		}
+		form = PayPalPaymentsForm(initial=paypal_dict)
 		return render(request, 'checkout.html',{'cart_data':request.session['cartdata'],'totalitems':len(request.session['cartdata']),'total_amt':total_amt,'form':form})
 
 @csrf_exempt
