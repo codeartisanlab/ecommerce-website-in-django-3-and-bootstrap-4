@@ -46,6 +46,7 @@
           <h6>Rs. <span class="product-price-{{product.id}}">{{product.productattribute_set.first.price}}</span></h6>
 			  </div>
 			  <div class="card-footer">
+          {{product.productattribute_set.first.color.title}}
           <input type="hidden" value="1" class="form-control product-qty-{{product.id}}" id="productQty" />
           <input type="hidden" class="product-image-{{product.id}}" value="{{product.productattribute_set.first.image}}" />
           <input type="hidden" class="product-id-{{product.id}}" value="{{product.id}}" />

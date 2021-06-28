@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+from .models import ProductReview
 
 class SignupForm(UserCreationForm):
 	full_name=forms.CharField(max_length=50,required=True)
@@ -10,3 +11,9 @@ class SignupForm(UserCreationForm):
 	class Meta:
 		model=User
 		fields=('full_name','mobile','address','username','password1','password2')
+
+# Review Add Form
+class ReviewAdd(forms.ModelForm):
+	class Meta:
+		model=ProductReview
+		fields=('review_text','review_rating')
