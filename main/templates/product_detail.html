@@ -31,7 +31,7 @@
 				</tr>
 				<tr>
 					<th>Price</th>
-					<th>Rs. <span class="product-price-{{data.id}}">{{data.productattribute_set.first.price}}</span></th>
+					<th>$ <span class="product-price-{{data.id}}">{{data.productattribute_set.first.price}}</span></th>
 				</tr>
 			</table>
 			<hr/>
@@ -68,9 +68,11 @@
 		</div>
 		<!-- Reviews -->
 		<div class="col-md-6">
-			<h3 class="my-3">Reviews - 4.5/5 <i class="fa fa-star text-warning"></i>
+			<h3 class="my-3">Reviews - <span class="avg-rating">{{avg_reviews.avg_rating}}</span>/5 <i class="fa fa-star text-warning"></i>
 				{% if user.is_authenticated %}
-				<button data-toggle="modal" data-target="#productReview" type="button" class="btn btn-warning btn-sm float-right">Add Review</button>
+				{% if canAdd %}
+				<button data-toggle="modal" data-target="#productReview" type="button" class="btn btn-warning btn-sm float-right reviewBtn">Add Review</button>
+				{% endif %}
 				{% endif %}
 			</h3>
 	{% if user.is_authenticated %}
@@ -106,20 +108,25 @@
 	{% endif %}
 			</h3>
 			<div class="card">
-				<div class="card-body" style="max-height: 400px; overflow: auto;">
+				<div class="card-body review-list" style="max-height: 400px; overflow: auto;">
 					<!-- Detail -->
-					<blockquote class="blockquote text-right">
-					  <small>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</small>
-					  <footer class="blockquote-footer">User 
-					  	<cite title="Source Title">
-					  		<i class="fa fa-star text-warning"></i>
-					  		<i class="fa fa-star text-warning"></i>
-					  		<i class="fa fa-star text-warning"></i>
-					  		<i class="fa fa-star text-warning"></i>
-					  	</cite>
-					  </footer>
-					</blockquote>
-					<hr />
+					{% if reviews %}
+						{% for review in reviews %}
+						<blockquote class="blockquote text-right">
+						  <small>{{review.review_text}}</small>
+						  <footer class="blockquote-footer">{{review.user}} 
+						  	<cite title="Source Title">
+						  		{% for star in review.review_rating|ljust:review.review_rating %}
+						  		<i class="fa fa-star text-warning"></i>
+								{% endfor %}
+						  	</cite>
+						  </footer>
+						</blockquote>
+						<hr />
+						{% endfor %}
+					{% else %}
+						<p class="no-data">Add First Review</p>
+					{% endif %}
 				</div>
 			</div>
 		</div>

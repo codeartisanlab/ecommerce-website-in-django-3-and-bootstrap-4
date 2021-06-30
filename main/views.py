@@ -1,7 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import JsonResponse,HttpResponse
 from .models import Banner,Category,Brand,Product,ProductAttribute,CartOrder,CartOrderItems,ProductReview
-from django.db.models import Max,Min,Count
+from django.db.models import Max,Min,Count,Avg
 from django.template.loader import render_to_string
 from .forms import SignupForm,ReviewAdd
 from django.contrib.auth import login,authenticate
@@ -65,7 +65,24 @@ def product_detail(request,slug,id):
 	colors=ProductAttribute.objects.filter(product=product).values('color__id','color__title','color__color_code').distinct()
 	sizes=ProductAttribute.objects.filter(product=product).values('size__id','size__title','price','color__id').distinct()
 	reviewForm=ReviewAdd()
-	return render(request, 'product_detail.html',{'data':product,'related':related_products,'colors':colors,'sizes':sizes,'reviewForm':reviewForm})
+
+	# Check
+	canAdd=True
+	reviewCheck=ProductReview.objects.filter(user=request.user,product=product).count()
+	if request.user.is_authenticated:
+		if reviewCheck > 0:
+			canAdd=False
+	# End
+
+	# Fetch reviews
+	reviews=ProductReview.objects.filter(product=product)
+	# End
+
+	# Fetch avg rating for reviews
+	avg_reviews=ProductReview.objects.filter(product=product).aggregate(avg_rating=Avg('review_rating'))
+	# End
+
+	return render(request, 'product_detail.html',{'data':product,'related':related_products,'colors':colors,'sizes':sizes,'reviewForm':reviewForm,'canAdd':canAdd,'reviews':reviews,'avg_reviews':avg_reviews})
 
 # Search
 def search(request):
@@ -246,4 +263,14 @@ def save_review(request,pid):
 		review_text=request.POST['review_text'],
 		review_rating=request.POST['review_rating'],
 		)
-	return JsonResponse({'bool':True})
+	data={
+		'user':user.username,
+		'review_text':request.POST['review_text'],
+		'review_rating':request.POST['review_rating']
+	}
+
+	# Fetch avg rating for reviews
+	avg_reviews=ProductReview.objects.filter(product=product).aggregate(avg_rating=Avg('review_rating'))
+	# End
+
+	return JsonResponse({'bool':True,'data':data,'avg_reviews':avg_reviews})

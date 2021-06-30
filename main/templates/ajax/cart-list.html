@@ -20,8 +20,8 @@
 					<button data-item="{{product_id}}" class="btn btn-sm btn-primary update-item"><i class="fa fa-sync"></i></button>
 					<button class="btn btn-sm btn-danger delete-item" data-item="{{product_id}}"><i class="fa fa-trash"></i></button>
 				</td>
-				<td>Rs. {{item.price}}</td>
-				<td>Rs. {% widthratio item.price 1 item.qty %}</td>
+				<td>$ {{item.price}}</td>
+				<td>$ {% widthratio item.price 1 item.qty %}</td>
 			</tr>
 			{% endfor %}
 		</tbody>
@@ -29,7 +29,7 @@
 			<tr>
 				<td colspan="2"></td>
 				<th>Total</th>
-				<th>Rs. {{total_amt}}</th>
+				<th>$ {{total_amt}}</th>
 			</tr>
 			{% if totalitems %}
 			<tr>

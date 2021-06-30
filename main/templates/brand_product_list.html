@@ -19,7 +19,7 @@
 					  <a href="/product/{{product.slug}}/{{product.id}}"><img src="/media/{{product.productattribute_set.first.image}}" class="card-img-top" alt="{{product.title}}"></a>
 					  <div class="card-body">
 					    <h5 class="card-text"><a href="/product/{{product.slug}}/{{product.id}}">{{product.title}}</a></h5>
-					    <h6>Rs. <span class="product-price-{{product.id}}">{{product.productattribute_set.first.price}}</span></h6>
+					    <h6>$ <span class="product-price-{{product.id}}">{{product.productattribute_set.first.price}}</span></h6>
 					  </div>
 					  	<div class="card-footer">
 				          <input type="hidden" value="1" class="form-control product-qty-{{product.id}}" id="productQty" />
