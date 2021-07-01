@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<main class="container my-4">
+	<!-- Featured Products -->
+	<h3 class="my-4 border-bottom pb-1">My Orders</h3>
+	<div class="row">
+		<div class="col-md-3">
+			{% include 'user/user-sidebar.html' %}
+		</div>
+		<div class="col-md-9">
+			<div class="table-responsive">
+				<table class="table-bordered table">
+					<thead>
+						<tr>
+							<th>OrderNo</th>
+							<th>Total Amt</th>
+							<th>Status</th>
+							<th>Order Time</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for order in orders %}
+						<tr>
+							<td><a href="{% url 'my_order_items' order.id %}" class="btn btn-sm btn-dark">{{order.id}}</a></td>
+							<td>{{order.total_amt}}</td>
+							<td>{{order.paid_status}}</td>
+							<td>{{order.order_dt}}</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</main>
+{% endblock %}

@@ -24,7 +24,12 @@ urlpatterns=[
     path('paypal/', include('paypal.standard.ipn.urls')),
     path('payment-done/', views.payment_done, name='payment_done'),
     path('payment-cancelled/', views.payment_canceled, name='payment_cancelled'),
-    path('save-review/<int:pid>',views.save_review, name='save-review')
+    path('save-review/<int:pid>',views.save_review, name='save-review'),
+    # User Section Start
+    path('my-dashboard',views.my_dashboard, name='my_dashboard'),
+    path('my-orders',views.my_orders, name='my_orders'),
+    path('my-orders-items/<int:id>',views.my_order_items, name='my_order_items'),
+    # End
 ]
 
 if settings.DEBUG:

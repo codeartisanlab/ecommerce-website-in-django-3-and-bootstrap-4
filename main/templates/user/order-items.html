@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<main class="container my-4">
+	<!-- Featured Products -->
+	<h3 class="my-4 border-bottom pb-1">Order Items</h3>
+	<div class="row">
+		<div class="col-md-3">
+			{% include 'user/user-sidebar.html' %}
+		</div>
+		<div class="col-md-9">
+			<div class="table-responsive">
+				<table class="table-bordered table">
+					<thead>
+						<tr>
+							<th>Inv no</th>
+							<th>Item</th>
+							<th>Qty</th>
+							<th>Price</th>
+							<th>Total</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for item in orderitems %}
+						<tr>
+							<td>{{item.invoice_no}}</td>
+							<td>
+								<p><img src="/media/{{item.image}}" width="80" /></p>
+								{{item.item}}
+							</td>
+							<td>{{item.qty}}</td>
+							<td>{{item.price}}</td>
+							<td>{{item.total}}</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</main>
+{% endblock %}

@@ -274,3 +274,18 @@ def save_review(request,pid):
 	# End
 
 	return JsonResponse({'bool':True,'data':data,'avg_reviews':avg_reviews})
+
+# User Dashboard
+def my_dashboard(request):
+	return render(request, 'user/dashboard.html')
+
+# My Orders
+def my_orders(request):
+	orders=CartOrder.objects.filter(user=request.user).order_by('-id')
+	return render(request, 'user/orders.html',{'orders':orders})
+
+# Order Detail
+def my_order_items(request,id):
+	order=CartOrder.objects.get(pk=id)
+	orderitems=CartOrderItems.objects.filter(order=order).order_by('-id')
+	return render(request, 'user/order-items.html',{'orderitems':orderitems})

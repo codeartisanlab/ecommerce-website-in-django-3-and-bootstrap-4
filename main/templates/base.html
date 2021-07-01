@@ -50,6 +50,7 @@
 		        </a>
 		        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 		        {% if user.is_authenticated %}
+		        	<a class="dropdown-item" href="{% url 'my_dashboard' %}">Dashboard</a>
 		        	<a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
 	        	{% else %}
 	        		<a class="dropdown-item" href="{% url 'login' %}">Login</a>
