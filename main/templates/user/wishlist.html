@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<main class="container my-4">
+	<!-- Featured Products -->
+	<h3 class="my-4 border-bottom pb-1">Wishlist Items</h3>
+	<div class="row">
+		<div class="col-md-3">
+			{% include 'user/user-sidebar.html' %}
+		</div>
+		<div class="col-md-9">
+			<div class="table-responsive">
+				<table class="table-bordered table">
+					<thead>
+						<tr>
+							<th>Title</th>
+							<th>Image</th>
+							<th>Price</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for wl in wlist %}
+						<tr>
+							<td><a href="/product/{{wl.product.slug}}/{{wl.product.id}}">{{wl.product.title}}</a></td>
+							<td>
+								<img width="100" src="/media/{{wl.product.productattribute_set.first.image}}" alt="{{wl.product.title}}">
+							</td>
+							<td>{{wl.product.productattribute_set.first.price}}</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</main>
+{% endblock %}

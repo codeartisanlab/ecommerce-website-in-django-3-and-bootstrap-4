@@ -52,7 +52,11 @@
           <input type="hidden" class="product-id-{{product.id}}" value="{{product.id}}" />
           <input type="hidden" class="product-title-{{product.id}}" value="{{product.title}}" />
 			  	<button class="btn btn-sm btn-primary add-to-cart" data-index="{{product.id}}"><i class="fa fa-shopping-cart"></i></button>
-			  	<button class="btn btn-sm btn-danger"><i class="fa fa-heart"></i></button>
+          {% if user.is_authenticated %}
+			  	<button class="btn btn-sm btn-danger add-wishlist" data-product="{{product.id}}"><i class="fa fa-heart"></i></button>
+          {% else %}
+          <button class="btn btn-sm btn-danger disabled"><i class="fa fa-heart"></i></button>
+          {% endif %}
 			  	<span class="float-right">
 			  		4.5/5
 			  		<i class="fa fa-star text-warning"></i>

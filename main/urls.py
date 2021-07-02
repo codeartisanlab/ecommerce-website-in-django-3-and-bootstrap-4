@@ -30,6 +30,10 @@ urlpatterns=[
     path('my-orders',views.my_orders, name='my_orders'),
     path('my-orders-items/<int:id>',views.my_order_items, name='my_order_items'),
     # End
+
+    # Wishlist
+    path('add-wishlist',views.add_wishlist, name='add_wishlist'),
+    path('my-wishlist',views.my_wishlist, name='my_wishlist'),
 ]
 
 if settings.DEBUG:

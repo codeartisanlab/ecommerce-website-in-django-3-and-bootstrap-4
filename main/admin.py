@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Banner,Category,Brand,Color,Size,Product,ProductAttribute,CartOrder,CartOrderItems,ProductReview
+from .models import Banner,Category,Brand,Color,Size,Product,ProductAttribute,CartOrder,CartOrderItems,ProductReview,Wishlist
 
 # admin.site.register(Banner)
 admin.site.register(Brand)
@@ -41,3 +41,6 @@ admin.site.register(CartOrderItems,CartOrderItemsAdmin)
 class ProductReviewAdmin(admin.ModelAdmin):
 	list_display=('user','product','review_text','get_review_rating')
 admin.site.register(ProductReview,ProductReviewAdmin)
+
+
+admin.site.register(Wishlist)
