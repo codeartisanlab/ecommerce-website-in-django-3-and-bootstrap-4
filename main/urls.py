@@ -34,6 +34,8 @@ urlpatterns=[
     # Wishlist
     path('add-wishlist',views.add_wishlist, name='add_wishlist'),
     path('my-wishlist',views.my_wishlist, name='my_wishlist'),
+    # My Reviews
+    path('my-reviews',views.my_reviews, name='my-reviews'),
 ]
 
 if settings.DEBUG:
