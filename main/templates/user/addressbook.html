@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<main class="container my-4">
+	<!-- Featured Products -->
+	<h3 class="my-4 border-bottom pb-1">Address Book <a href="{% url 'add-address' %}" class="float-right btn btn-sm btn-success"><i class="fa fa-plus"></i></a></h3>
+	<div class="row">
+		<div class="col-md-3">
+			{% include 'user/user-sidebar.html' %}
+		</div>
+		<div class="col-md-9">
+			<div class="row">
+				{% for add in addbook %}
+				<div class="col-md-4">
+					<div class="card {% if add.status %}border-secondary shadow{% endif %}">
+						<div class="card-body">{{add.address}}</div>
+						{% if add.status %}
+						<div class="card-footer">
+							<i class="fa fa-check-circle text-success"></i>
+						</div>
+						{% endif %}
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+</main>
+{% endblock %}

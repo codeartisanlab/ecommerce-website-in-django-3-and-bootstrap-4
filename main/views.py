@@ -1,9 +1,9 @@
 from django.shortcuts import render,redirect
 from django.http import JsonResponse,HttpResponse
-from .models import Banner,Category,Brand,Product,ProductAttribute,CartOrder,CartOrderItems,ProductReview,Wishlist
+from .models import Banner,Category,Brand,Product,ProductAttribute,CartOrder,CartOrderItems,ProductReview,Wishlist,UserAddressBook
 from django.db.models import Max,Min,Count,Avg
 from django.template.loader import render_to_string
-from .forms import SignupForm,ReviewAdd
+from .forms import SignupForm,ReviewAdd,AddressBookForm
 from django.contrib.auth import login,authenticate
 from django.contrib.auth.decorators import login_required
 #paypal
@@ -319,3 +319,21 @@ def my_wishlist(request):
 def my_reviews(request):
 	reviews=ProductReview.objects.filter(user=request.user).order_by('-id')
 	return render(request, 'user/reviews.html',{'reviews':reviews})
+
+# My AddressBook
+def my_addressbook(request):
+	addbook=UserAddressBook.objects.filter(user=request.user).order_by('-id')
+	return render(request, 'user/addressbook.html',{'addbook':addbook})
+
+# Save addressbook
+def save_address(request):
+	msg=None
+	if request.method=='POST':
+		form=AddressBookForm(request.POST)
+		if form.is_valid():
+			saveForm=form.save(commit=False)
+			saveForm.user=request.user
+			saveForm.save()
+			msg='Data has been saved'
+	form=AddressBookForm
+	return render(request, 'user/add-address.html',{'form':form,'msg':msg})

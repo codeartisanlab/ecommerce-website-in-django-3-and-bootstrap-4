@@ -36,6 +36,9 @@ urlpatterns=[
     path('my-wishlist',views.my_wishlist, name='my_wishlist'),
     # My Reviews
     path('my-reviews',views.my_reviews, name='my-reviews'),
+    # My AddressBook
+    path('my-addressbook',views.my_addressbook, name='my-addressbook'),
+    path('add-address',views.save_address, name='add-address'),
 ]
 
 if settings.DEBUG:

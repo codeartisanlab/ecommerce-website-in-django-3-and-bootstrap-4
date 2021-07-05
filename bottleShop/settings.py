@@ -132,3 +132,5 @@ LOGOUT_REDIRECT_URL='login'
 
 PAYPAL_RECEIVER_EMAIL = 'sb-c5xgx6555500@business.example.com'
 PAYPAL_TEST = True
+
+JET_SIDE_MENU_COMPACT = True
