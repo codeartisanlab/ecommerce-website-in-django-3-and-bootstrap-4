@@ -170,6 +170,33 @@ $(document).ready(function(){
 	});
 	// End
 
+	// Activate selected address
+	$(document).on('click','.activate-address',function(){
+		var _aId=$(this).attr('data-address');
+		var _vm=$(this);
+		// Ajax
+		$.ajax({
+			url:'/activate-address',
+			data:{
+				'id':_aId,
+			},
+			dataType:'json',
+			success:function(res){
+				if(res.bool==true){
+					$(".address").removeClass('shadow border-secondary');
+					$(".address"+_aId).addClass('shadow border-secondary');
+
+					$(".check").hide();
+					$(".actbtn").show();
+					
+					$(".check"+_aId).show();
+					$(".btn"+_aId).hide();
+				}
+			}
+		});
+		// End
+	});
+
 });
 // End Document.Ready
 

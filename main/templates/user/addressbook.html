@@ -12,11 +12,17 @@
 			<div class="row">
 				{% for add in addbook %}
 				<div class="col-md-4">
-					<div class="card {% if add.status %}border-secondary shadow{% endif %}">
+					<div class="card {% if add.status %}border-secondary shadow{% endif %} address{{add.id}} address">
 						<div class="card-body">{{add.address}}</div>
 						{% if add.status %}
 						<div class="card-footer">
-							<i class="fa fa-check-circle text-success"></i>
+							<i class="fa fa-check-circle text-success check{{add.id}} check"></i>
+							<button style="display:none;" data-address="{{add.id}}" class="btn btn-sm btn-info activate-address btn{{add.id}} actbtn">Activate</button>
+						</div>
+						{% else %}
+						<div class="card-footer footer{{add.id}}">
+							<i style="display:none;" class="fa fa-check-circle text-success check{{add.id}} check"></i>
+							<button data-address="{{add.id}}" class="btn btn-sm btn-info activate-address btn{{add.id}} actbtn">Activate</button>
 						</div>
 						{% endif %}
 					</div>

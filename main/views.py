@@ -337,3 +337,10 @@ def save_address(request):
 			msg='Data has been saved'
 	form=AddressBookForm
 	return render(request, 'user/add-address.html',{'form':form,'msg':msg})
+
+# Activate address
+def activate_address(request):
+	a_id=str(request.GET['id'])
+	UserAddressBook.objects.update(status=False)
+	UserAddressBook.objects.filter(id=a_id).update(status=True)
+	return JsonResponse({'bool':True})

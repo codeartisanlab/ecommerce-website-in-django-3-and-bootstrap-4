@@ -39,6 +39,7 @@ urlpatterns=[
     # My AddressBook
     path('my-addressbook',views.my_addressbook, name='my-addressbook'),
     path('add-address',views.save_address, name='add-address'),
+    path('activate-address',views.activate_address, name='activate-address'),
 ]
 
 if settings.DEBUG:
