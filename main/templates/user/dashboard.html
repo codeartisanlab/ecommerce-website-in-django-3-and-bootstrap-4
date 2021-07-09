@@ -9,8 +9,37 @@
 			{% include 'user/user-sidebar.html' %}
 		</div>
 		<div class="col-md-9">
-			
+			<div>
+			  <canvas id="myChart"></canvas>
+			</div>
 		</div>
 	</div>
 </main>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script type="text/javascript">
+	const labels = {{monthNumber|safe}};
+	const data = {
+	  labels: labels,
+	  datasets: [{
+	    label: 'Orders By Month',
+	    backgroundColor: 'rgb(255, 99, 132)',
+	    borderColor: 'rgb(255, 99, 132)',
+	    data: {{totalOrders}},
+	  }]
+	};
+
+	const config = {
+	  type: 'bar',
+	  data,
+	  options: {}
+	};
+
+	var myChart = new Chart(
+	    document.getElementById('myChart'),
+	    config
+  	);
+
+</script>
+
 {% endblock %}

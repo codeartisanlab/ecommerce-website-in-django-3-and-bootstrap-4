@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from django.http import JsonResponse,HttpResponse
 from .models import Banner,Category,Brand,Product,ProductAttribute,CartOrder,CartOrderItems,ProductReview,Wishlist,UserAddressBook
 from django.db.models import Max,Min,Count,Avg
+from django.db.models.functions import ExtractMonth
 from django.template.loader import render_to_string
 from .forms import SignupForm,ReviewAdd,AddressBookForm,ProfileForm
 from django.contrib.auth import login,authenticate
@@ -277,8 +278,15 @@ def save_review(request,pid):
 	return JsonResponse({'bool':True,'data':data,'avg_reviews':avg_reviews})
 
 # User Dashboard
+import calendar
 def my_dashboard(request):
-	return render(request, 'user/dashboard.html')
+	orders=CartOrder.objects.annotate(month=ExtractMonth('order_dt')).values('month').annotate(count=Count('id')).values('month','count')
+	monthNumber=[]
+	totalOrders=[]
+	for d in orders:
+		monthNumber.append(calendar.month_name[d['month']])
+		totalOrders.append(d['count'])
+	return render(request, 'user/dashboard.html',{'monthNumber':monthNumber,'totalOrders':totalOrders})
 
 # My Orders
 def my_orders(request):
