@@ -3,7 +3,7 @@ from django.http import JsonResponse,HttpResponse
 from .models import Banner,Category,Brand,Product,ProductAttribute,CartOrder,CartOrderItems,ProductReview,Wishlist,UserAddressBook
 from django.db.models import Max,Min,Count,Avg
 from django.template.loader import render_to_string
-from .forms import SignupForm,ReviewAdd,AddressBookForm
+from .forms import SignupForm,ReviewAdd,AddressBookForm,ProfileForm
 from django.contrib.auth import login,authenticate
 from django.contrib.auth.decorators import login_required
 #paypal
@@ -240,7 +240,8 @@ def checkout(request):
 		    'cancel_return': 'http://{}{}'.format(host,reverse('payment_cancelled')),
 		}
 		form = PayPalPaymentsForm(initial=paypal_dict)
-		return render(request, 'checkout.html',{'cart_data':request.session['cartdata'],'totalitems':len(request.session['cartdata']),'total_amt':total_amt,'form':form})
+		address=UserAddressBook.objects.filter(user=request.user,status=True).first()
+		return render(request, 'checkout.html',{'cart_data':request.session['cartdata'],'totalitems':len(request.session['cartdata']),'total_amt':total_amt,'form':form,'address':address})
 
 @csrf_exempt
 def payment_done(request):
@@ -333,6 +334,8 @@ def save_address(request):
 		if form.is_valid():
 			saveForm=form.save(commit=False)
 			saveForm.user=request.user
+			if 'status' in request.POST:
+				UserAddressBook.objects.update(status=False)
 			saveForm.save()
 			msg='Data has been saved'
 	form=AddressBookForm
@@ -344,3 +347,30 @@ def activate_address(request):
 	UserAddressBook.objects.update(status=False)
 	UserAddressBook.objects.filter(id=a_id).update(status=True)
 	return JsonResponse({'bool':True})
+
+# Edit Profile
+def edit_profile(request):
+	msg=None
+	if request.method=='POST':
+		form=ProfileForm(request.POST,instance=request.user)
+		if form.is_valid():
+			form.save()
+			msg='Data has been saved'
+	form=ProfileForm(instance=request.user)
+	return render(request, 'user/edit-profile.html',{'form':form,'msg':msg})
+
+# Update addressbook
+def update_address(request,id):
+	address=UserAddressBook.objects.get(pk=id)
+	msg=None
+	if request.method=='POST':
+		form=AddressBookForm(request.POST,instance=address)
+		if form.is_valid():
+			saveForm=form.save(commit=False)
+			saveForm.user=request.user
+			if 'status' in request.POST:
+				UserAddressBook.objects.update(status=False)
+			saveForm.save()
+			msg='Data has been saved'
+	form=AddressBookForm(instance=address)
+	return render(request, 'user/update-address.html',{'form':form,'msg':msg})

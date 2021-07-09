@@ -3,8 +3,10 @@
 {% block content %}
 <main class="container my-4" id="cartList">
 	<!-- Featured Products -->
-	<h3 class="my-4 border-bottom pb-1">Cart ({{totalitems}})</h3>
-	<table class="table table-bordered">
+	<div class="row">
+		<div class="col-md-9">
+			<h3 class="my-4 border-bottom pb-1">Cart ({{totalitems}})</h3>
+			<table class="table table-bordered">
 		<thead>
 			<tr>
 				<th>Product</th>
@@ -43,5 +45,15 @@
 			{% endif %}
 		</tfoot>
 	</table>
+		</div>
+		<div class="col-md-3">
+			<h3 class="my-4 border-bottom pb-1">Selected Address</h3>
+			<div class="card">
+				<div class="card-body">
+					<p>{{address.address}}</p>
+				</div>
+			</div>
+		</div>
+	</div>
 </main>
 {% endblock %}
