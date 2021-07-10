@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'main',
     'jet.dashboard',
     'jet',
     'django.contrib.admin',
@@ -39,7 +40,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'main',
     'paypal.standard.ipn'
 ]
 
@@ -134,3 +134,6 @@ PAYPAL_RECEIVER_EMAIL = 'sb-c5xgx6555500@business.example.com'
 PAYPAL_TEST = True
 
 JET_SIDE_MENU_COMPACT = True
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

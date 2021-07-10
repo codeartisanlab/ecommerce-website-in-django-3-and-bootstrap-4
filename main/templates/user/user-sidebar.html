@@ -5,5 +5,6 @@
 	<a href="{% url 'my_wishlist' %}" class="list-group-item {% if request.path == '/my-wishlist' %}active {% endif %}">Wishlist</a>
 	<a href="{% url 'my-reviews' %}" class="list-group-item {% if request.path == '/my-reviews' %}active {% endif %}">My Reviews</a>
 	<a href="{% url 'my-addressbook' %}" class="list-group-item {% if request.path == '/my-addressbook' %}active {% endif %}">Address Book</a>
+	<a href="{% url 'password_change' %}" class="list-group-item {% if request.path == '/accounts/password_change/' %}active {% endif %}">Password Change</a>
 	<a href="{% url 'logout' %}" class="text-danger list-group-item">Logout</a>
 </div>
