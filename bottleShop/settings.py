@@ -148,10 +148,3 @@ JET_SIDE_MENU_COMPACT = True
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 django_heroku.settings(locals())
-
-
-EMAIL_HOST = 'smtp.sendgrid.net'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'apikey'
-EMAIL_HOST_PASSWORD = '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'
-EMAIL_USE_TLS = True
