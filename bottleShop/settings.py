@@ -145,6 +145,13 @@ PAYPAL_TEST = True
 JET_SIDE_MENU_COMPACT = True
 
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 django_heroku.settings(locals())
+
+
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'apikey'
+EMAIL_HOST_PASSWORD = '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'
+EMAIL_USE_TLS = True
